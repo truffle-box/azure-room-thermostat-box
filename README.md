@@ -1,30 +1,30 @@
 Room Thermostat Sample Application for Azure Blockchain Workbench
 ====================================================
 
-Overview 
+Overview
 ---------
 
 The room thermostat scenario expresses a workflow around thermostat installation and use. In this scenario, a person will install a thermostat and indicate who is the intended user for the thermostat. The assigned user can do things such as set the target temperature and set the mode for the thermostat.
 
 <br />
 
-Application Roles 
+Application Roles
 ------------------
 
 | Name       | Description                                                                                         |
 |------------|-----------------------------------------------------------------------------------------------------|
-| Installer | A person who is responsible for installing the thermostat.                                             |
+| Installer | A person who is responsible for installing the thermostat. |
 | User | A person who uses the thermostat.  |
 
 <br />
 
-States 
+States
 -------
 
 | Name                 | Description                                                                                                 |
 |----------------------|-------------------------------------------------------------------------------------------------------------|
-| Created | Indicates that a thermostat installation has been requested.                                                      |
-| InUse | Indicates that the thermostat is in use.                                                                       |
+| Created | Indicates that a thermostat installation has been requested. |
+| InUse | Indicates that the thermostat is in use. |
 
 <br />
 
