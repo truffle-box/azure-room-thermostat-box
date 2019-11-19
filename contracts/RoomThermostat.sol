@@ -1,77 +1,80 @@
-pragma solidity ^0.4.20;
-contract WorkbenchBase {
-    event WorkbenchContractCreated(string applicationName, string workflowName, address originatingAddress);
-    event WorkbenchContractUpdated(string applicationName, string workflowName, string action, address originatingAddress);
+pragma solidity ^0.5.0;
 
-    string internal ApplicationName;
-    string internal WorkflowName;
-
-    function WorkbenchBase(string applicationName, string workflowName) internal {
-        ApplicationName = applicationName;
-        WorkflowName = workflowName;
-    }
-
-    function ContractCreated() internal {
-        WorkbenchContractCreated(ApplicationName, WorkflowName, msg.sender);
-    }
-
-    function ContractUpdated(string action) internal {
-        WorkbenchContractUpdated(ApplicationName, WorkflowName, action, msg.sender);
-    }
-}
-
-contract RoomThermostat is WorkbenchBase('RoomThermostat', 'RoomThermostat')
+contract RoomThermostat
 {
 
-    //Set of States
-	enum StateType { Created, InUse}
-	
-	//List of properties
-	StateType public State;
-	address public Installer;
-	address public User;
+    enum StateType {
+        Created,
+        InUse
+    }
+
+    enum ModeEnum {
+        Off,
+        Cool,
+        Heat,
+        Auto
+    }
+
+    string internal ApplicationName = "RoomThermostat";
+    string internal WorkflowName = "RoomThermostat";
+
+    event ContractCreated(string applicationName, string workflowName, address originatingAddress);
+    event ContractUpdated(string applicationName, string workflowName, string action, address originatingAddress);
+
+    address public Installer;
+    address public User;
+    StateType public State;
     int public TargetTemperature;
-    enum ModeEnum {Off, Cool, Heat, Auto}
-	ModeEnum public  Mode;
-	
-	function RoomThermostat(address thermostatInstaller, address thermostatUser) public
-	{
+    ModeEnum public  Mode;
+
+    constructor (address thermostatInstaller, address thermostatUser) public {
         Installer = thermostatInstaller;
         User = thermostatUser;
         TargetTemperature = 70;
-        ContractCreated();
+        State = StateType.Created;
+
+        emit ContractCreated(ApplicationName, WorkflowName, msg.sender);
     }
 
-	function StartThermostat() public
-	{
-        if (Installer != msg.sender || State != StateType.Created)
-        {
-            revert();
+    function StartThermostat() public {
+        if (Installer != msg.sender) {
+            revert("Only installer can install the thermostat");
+        }
+
+        if (State != StateType.Created) {
+            revert("StartThermostat function can only be called when at Created state");
         }
 
         State = StateType.InUse;
-        ContractUpdated('StartThermostat');
+
+        emit ContractUpdated(ApplicationName, WorkflowName, "StartThermostat", msg.sender);
     }
 
-	function SetTargetTemperature(int targetTemperature) public
-	{
-	    if (User != msg.sender || State != StateType.InUse)
-        {
-            revert();
+    function SetTargetTemperature(int targetTemperature) public {
+        if (User != msg.sender) {
+            revert("Only user can set target temperature");
         }
+
+        if (State != StateType.InUse) {
+            revert("SetTargetTemperature function can only be called when at InUse state");
+        }
+
         TargetTemperature = targetTemperature;
 
-        ContractUpdated('SetTemperature');
+        emit ContractUpdated(ApplicationName, WorkflowName, "SetTargetTemperature", msg.sender);
     }
 
-	function SetMode(ModeEnum mode) public
-	{
-	    if (User != msg.sender || State != StateType.InUse)
-        {
-            revert();
+    function SetMode(ModeEnum mode) public {
+        if (User != msg.sender) {
+            revert("Only user can set mode");
         }
+
+        if (State != StateType.InUse) {
+            revert("SetMode function can only be called when at InUse state");
+        }
+
         Mode = mode;
 
-        ContractUpdated('SetMode');
+        emit ContractUpdated(ApplicationName, WorkflowName, "SetMode", msg.sender);
     }
 }

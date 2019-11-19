@@ -31,14 +31,12 @@ States
 Workflow Details
 ----------------
 
-![](https://raw.githubusercontent.com/caleteeter/room-thermostat/master/media/roomthermostat.png)
+![](https://raw.githubusercontent.com/truffle-box/azure-room-thermostat-box/master/media/roomthermostat.png)
 
-The room thermostat is a simple workflow to demonstrate how to use the enum data type. Once the installer has installed and started the thermostat, the user can take two main actions. As a user, you can set the target temperature to a temperature you specify, or you can set the mode to one of four modes: Off, Cool, Heat, and Auto. 
+The room thermostat is a simple workflow to demonstrate how to use the enum data type. Once the installer has installed and started the thermostat, the user can take two main actions. As a user, you can set the target temperature to a temperature you specify, or you can set the mode to one of four modes: Off, Cool, Heat, and Auto.
 
 <br />
 
 Application Files
 -----------------
-[RoomThermostat.json](https://raw.githubusercontent.com/caleteeter/room-thermostat/master/RoomThermostat.json)
-
-[RoomThermostat.sol](https://raw.githubusercontent.com/caleteeter/room-thermostat/master/contracts/RoomThermostat.sol)
+[RoomThermostat.sol](https://raw.githubusercontent.com/truffle-box/azure-room-thermostat-box/master/contracts/RoomThermostat.sol)
